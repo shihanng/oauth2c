@@ -14,7 +14,7 @@ type DeviceAuthorizationResponse struct {
 	UserCode                string `json:"user_code"`
 	VerificationURI         string `json:"verification_uri"`
 	VerificationURIComplete string `json:"verification_uri_complete"`
-	ExpiresIn               int64  `json:"expires_in"`
+	ExpiresIn               string `json:"expires_in"`
 	Interval                int64  `json:"interval"`
 }
 

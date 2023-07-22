@@ -11,7 +11,6 @@ import (
 	"net/url"
 	"os"
 	"os/signal"
-	"strconv"
 	"strings"
 	"syscall"
 	"time"
@@ -109,7 +108,7 @@ func RequestAuthorization(cconfig ClientConfig, sconfig ServerConfig, hc *http.C
 
 type PARResponse struct {
 	RequestURI string `json:"request_uri"`
-	ExpiresIn  int64  `json:"expires_in"`
+	ExpiresIn  string `json:"expires_in"`
 }
 
 func RequestPAR(
@@ -283,7 +282,7 @@ func WaitForCallback(clientConfig ClientConfig, serverConfig ServerConfig, hc *h
 
 type TokenResponse struct {
 	AccessToken     string `json:"access_token,omitempty"`
-	ExpiresIn       int64  `json:"expires_in,omitempty"`
+	ExpiresIn       string `json:"expires_in,omitempty"`
 	IDToken         string `json:"id_token,omitempty"`
 	IssuedTokenType string `json:"issued_token_type,omitempty"`
 	RefreshToken    string `json:"refresh_token,omitempty"`
@@ -292,11 +291,11 @@ type TokenResponse struct {
 }
 
 func NewTokenResponseFromForm(f url.Values) TokenResponse {
-	expiresIn, _ := strconv.ParseInt(f.Get("expires_in"), 10, 64)
+	// expiresIn, _ := strconv.ParseInt(f.Get("expires_in"), 10, 64)
 
 	return TokenResponse{
 		AccessToken:     f.Get("access_token"),
-		ExpiresIn:       expiresIn,
+		ExpiresIn:       f.Get("expires_in"),
 		IDToken:         f.Get("id_token"),
 		IssuedTokenType: f.Get("issued_token_type"),
 		RefreshToken:    f.Get("refresh_token"),
